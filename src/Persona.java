@@ -33,6 +33,12 @@ public class Persona {
 			for(;;) {
 				fitxerLectura.seek(posicio);
 				id=fitxerLectura.readInt();
+				for (int i = 0; i < nom.length; i++) {
+					auxNom = fitxerLectura.readChar();
+					nom[i] = auxNom;
+				}
+				String nomS = new String(nom);
+				
 				for (int i = 0; i <cognom.length; i++) {
 					auxCognom = fitxerLectura.readChar();
 					cognom[i] = auxCognom;
@@ -45,27 +51,23 @@ public class Persona {
 				}
 				String dniS = new String(dni);
 				
-				for (int i = 0; i < nom.length; i++) {
-					auxNom = fitxerLectura.readChar();
-					nom[i] = auxNom;
-				}
-				String nomS = new String(nom);
-				
 				edat = fitxerLectura.readInt();
 				salari = fitxerLectura.readDouble();
+				System.out.println("ID: " + id + " Nom: " + nomS + " Cognom: " + cognomS + " DNI: " + dniS + " Edat: " + edat + " Salari: " + salari);
+
 				
 				if(id>0) {
 					Element raiz = document.createElement("empleado");
 					
 					document.getDocumentElement().appendChild(raiz);
 					CrearElemento("id", Integer.toString(id), raiz, document);
+					CrearElemento("noms", nomS.trim(), raiz, document);
 					CrearElemento("cognom", cognomS.trim(), raiz, document);
 					CrearElemento("dni", dniS.trim(), raiz, document);
-					CrearElemento("noms", nomS.trim(), raiz, document);
 					CrearElemento("edad", Integer.toString(edat), raiz, document);
 					CrearElemento("salario", Double.toString(salari), raiz, document);
 				}
-				posicio= posicio+36;
+				posicio= posicio+74;
 				if(fitxerLectura.getFilePointer() == fitxerLectura.length()) break;
 			}
 			
@@ -73,10 +75,10 @@ public class Persona {
 			Result result = new StreamResult(new java.io.File("Empleados.xml"));
 			Transformer transformer = TransformerFactory.newInstance().newTransformer();
 			transformer.transform(source, result);
-		}catch (Exception e) { System.out.println("Error: "+e);
+		}catch (Exception e) { 
+			System.out.println("Error: "+e);
+		}
 		fitxerLectura.close();
-	}
-
 	}
 	
 	static void CrearElemento(String datoEmple, String valor, 

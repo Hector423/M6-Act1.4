@@ -21,15 +21,18 @@ public class crearPersona {
 			accesArxiu.writeInt(i+1);
 			buffer = new StringBuffer(noms[i]);
 			buffer.setLength(10);
+			accesArxiu.writeChars(buffer.toString());
 			buffer = new StringBuffer(cognoms[i]);
 			buffer.setLength(10);
-			buffer = new StringBuffer(dnis[i]);
-			buffer.setLength(10);
-			accesArxiu.writeInt(edats[i]);
 			accesArxiu.writeChars(buffer.toString());
+			buffer = new StringBuffer(dnis[i]);
+			buffer.setLength(9);
+			accesArxiu.writeChars(buffer.toString());
+			accesArxiu.writeInt(edats[i]);
 			accesArxiu.writeDouble(salaris[i]);
 		}
-		
+
+		accesArxiu.close();
 	}
 
 }
